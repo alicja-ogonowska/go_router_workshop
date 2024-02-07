@@ -8,13 +8,33 @@ void main() {
 }
 
 final router = GoRouter(
+  // TODO yes, you need to put somewhere here
   initialLocation: '/',
   routes: [
-// TODO define an initial route '/' leading to MainScreen and it's child route
-//  'details' leading to DetailsScreen
+    GoRoute(
+      path: '/',
+      builder: (context, state) => const MainScreen(),
+      routes: [
+        GoRoute(
+          path: 'details',
+          builder: (context, state) => const DetailsScreen(),
+        ),
+      ],
+    ),
   ],
 );
 
+class ErrorScreen extends StatelessWidget {
+  const ErrorScreen(this.error, {super.key});
+
+  final GoException? error;
+
+  @override
+  Widget build(BuildContext context) {
+    // TODO Your beautiful error screen goes here!
+    return Placeholder();
+  }
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -43,7 +63,7 @@ class MainScreen extends StatelessWidget {
       body: Center(
         child: GestureDetector(
           onTap: () {
-            // TODO Go to details page
+            context.go('/details');
           },
           child: const Text(
             "Go to details",
@@ -69,7 +89,7 @@ class DetailsScreen extends StatelessWidget {
           children: [
             GestureDetector(
               onTap: () {
-                // TODO go back
+                context.pop();
               },
               child: const Text(
                 "Go back",
@@ -77,7 +97,7 @@ class DetailsScreen extends StatelessWidget {
             ),
             GestureDetector(
               onTap: () {
-                // TODO go to some random destination and see what happens
+                context.go('/holidays');
               },
               child: const Text(
                 "Go who knows where...",

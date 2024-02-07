@@ -9,12 +9,38 @@ void main() {
 
 final router = GoRouter(
   initialLocation: '/',
+  errorBuilder: (context, state) => ErrorScreen(state.error),
   routes: [
-// TODO define an initial route '/' leading to MainScreen and it's child route
-//  'details' leading to DetailsScreen
+    GoRoute(
+      path: '/',
+      builder: (context, state) => const MainScreen(),
+      routes: [
+        GoRoute(
+          path: 'details',
+          builder: (context, state) => const DetailsScreen(),
+        ),
+      ],
+    ),
   ],
 );
 
+class ErrorScreen extends StatelessWidget {
+  const ErrorScreen(this.error, {super.key});
+
+  final GoException? error;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+          const Icon(Icons.error_outline),
+          Text(error?.message ?? "Ooops, something went wrong"),
+        ]),
+      ),
+    );
+  }
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -43,7 +69,7 @@ class MainScreen extends StatelessWidget {
       body: Center(
         child: GestureDetector(
           onTap: () {
-            // TODO Go to details page
+            context.go('/details');
           },
           child: const Text(
             "Go to details",
@@ -69,7 +95,7 @@ class DetailsScreen extends StatelessWidget {
           children: [
             GestureDetector(
               onTap: () {
-                // TODO go back
+                context.pop();
               },
               child: const Text(
                 "Go back",
@@ -77,7 +103,7 @@ class DetailsScreen extends StatelessWidget {
             ),
             GestureDetector(
               onTap: () {
-                // TODO go to some random destination and see what happens
+                context.go('/holidays');
               },
               child: const Text(
                 "Go who knows where...",

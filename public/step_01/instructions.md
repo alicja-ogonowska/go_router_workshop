@@ -1,27 +1,10 @@
 # Step 1
 
-<iframe
-  width="560"
-  height="315"
-  src="https://www.youtube.com/embed/zSbsIiluixw"
-  title="YouTube video player"
-  frameborder="0"
-  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-  allowfullscreen>
-</iframe>
+Welcome to the GoRouter workshop! Today, we're going to delve into some practical
+examples and use cases that are common in both mobile and web apps.
 
-Flutter Codelab
+We'll start by examining the fundamentals of navigation using Navigator 1.0.
 
-```dart
-// Put this code in the build() method
-children: [
-  // Use this code
-  Text(
-    'You have pushed the button this many times:',
-  ),
-  Text(
-    '$_counter',
-    style: Theme.of(context).textTheme.headline4,
-  ),
-],
-```
+Our first task is to add navigation from MainScreen to DetailsScreen.
+Additionally, we'll implement an option that allows users to navigate back
+to the previous screen.

@@ -28,39 +28,12 @@ class MainScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Main Screen'),
+        title: const Text('Bravo!'),
       ),
       body: Center(
-        child: GestureDetector(
-          onTap: () {
-            // TODO Navigate to Details screen
-          },
-          child: const Text(
-            "Go to details",
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class DetailsScreen extends StatelessWidget {
-  const DetailsScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Details Screen'),
-      ),
-      body: Center(
-        child: GestureDetector(
-          onTap: () {
-            // TODO Navigate back
-          },
-          child: const Text(
-            "Go back",
-          ),
+        child: Text(
+          'Congratulations on finishing the GoRouter workshop! Let me '
+              'know what you think',
         ),
       ),
     );

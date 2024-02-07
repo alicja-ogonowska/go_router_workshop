@@ -10,11 +10,22 @@ void main() {
 final router = GoRouter(
   initialLocation: '/',
   routes: [
-// TODO define an initial route '/' leading to MainScreen and it's child route
-//  'details' leading to DetailsScreen
+    GoRoute(
+      path: '/',
+      builder: (context, state) => const MainScreen(),
+      routes: [
+        GoRoute(
+          path: 'details', //TODO this needs to change!
+          builder: (context, state) {
+            return DetailsScreen(
+              // TODO pass data via path parameters and via query parameters
+            );
+          },
+        ),
+      ],
+    ),
   ],
 );
-
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -41,13 +52,27 @@ class MainScreen extends StatelessWidget {
         title: const Text('Main Screen'),
       ),
       body: Center(
-        child: GestureDetector(
-          onTap: () {
-            // TODO Go to details page
-          },
-          child: const Text(
-            "Go to details",
-          ),
+        child: Column(
+          children: [
+            GestureDetector(
+              onTap: () {
+                context.go('/details/1');
+              },
+              child: const Text(
+                "Go to details of element 1",
+              ),
+            ),
+            GestureDetector(
+              onTap: () {
+                context.go(Uri(path: '/details/2', queryParameters: {
+                  'additionalInfo': 'I hope you are not too tired!'
+                }).toString());
+              },
+              child: const Text(
+                "Go to details of element 2",
+              ),
+            ),
+          ],
         ),
       ),
     );
@@ -55,7 +80,10 @@ class MainScreen extends StatelessWidget {
 }
 
 class DetailsScreen extends StatelessWidget {
-  const DetailsScreen({super.key});
+  const DetailsScreen({super.key, required this.id, this.additionalInfo});
+
+  final String id;
+  final String? additionalInfo;
 
   @override
   Widget build(BuildContext context) {
@@ -67,20 +95,14 @@ class DetailsScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            Text('ID: $id'),
+            Text('Additional info: $additionalInfo'),
             GestureDetector(
               onTap: () {
-                // TODO go back
+                context.pop();
               },
               child: const Text(
                 "Go back",
-              ),
-            ),
-            GestureDetector(
-              onTap: () {
-                // TODO go to some random destination and see what happens
-              },
-              child: const Text(
-                "Go who knows where...",
               ),
             ),
           ],
